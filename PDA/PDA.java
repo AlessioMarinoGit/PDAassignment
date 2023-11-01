@@ -26,26 +26,32 @@ public class PDA
     public void runEventLoop() {
         System.out.println("Please enter age");     
         Scanner newScan = new Scanner(System.in);
-        int lowerBound = 7;
+        int LOWER_BOUND = 14;
         boolean shouldContinue = true;
-        int quitNum = 0;
+        int QUIT = 0;
+        int DIVIDE = 2;
+        int ADD = 7;
 
         while (shouldContinue) {
             if (newScan.hasNext()) {
                 try {
-                    int age = newScan.nextInt();
-                    if (age == quitNum) {
+                    float age = newScan.nextInt();
+                    if (age == QUIT) {
                         shouldContinue = !shouldContinue;
                     }
-                    if (age >= lowerBound) {
-
-                        float maxAge = (age/2) + 7;
-                        float minAge = (age-7) * 2;
-                        System.out.println("You can date in the range of "+Math.ceil(minAge)+" to "+Math.floor(maxAge));
-                    } else {
-                        System.out.println(age+" is TOO YOUNG!!!!!!!!");
+                    if (age >= LOWER_BOUND) {
+                        float minAge = (age/DIVIDE) + ADD;
+                        float maxAge = (age-ADD) * DIVIDE;
+                        if (minAge >= maxAge) {
+                            minAge = (age/DIVIDE) + ADD;
+                            maxAge = (age-ADD) * DIVIDE;
+                        }
+                        System.out.println("Age " + Math.round(age) + " can date in the range of "+Math.round(Math.ceil(minAge))+" to "+Math.round(Math.floor(maxAge)));
+                    } if (age != QUIT && age < LOWER_BOUND) {
+                        System.out.println(Math.round(age)+" is TOO YOUNG!!!!!!!!");
                     }
                 } catch (InputMismatchException error) {
+                    newScan.next();
                     System.out.println("Please enter an integer");
                 }
             }
